@@ -15,6 +15,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 print(BASE_DIR)
 
 
@@ -27,7 +28,7 @@ SECRET_KEY = '@owa5jkc*8^e02h1xg1-0f6nq0o3_5kh9-7kn!q$r5%)s+=#a1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['locallibrare.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['locallibrare.herokuapp.com','127.0.0.1','localhost']
 
 LOGIN_REDIRECT_URL = "/"
 # Application definition
@@ -126,3 +127,4 @@ STATIC_ROOT= os.path.join(BASE_DIR,"staticfiles")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
