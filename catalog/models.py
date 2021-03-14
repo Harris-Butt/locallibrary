@@ -1,7 +1,9 @@
 from django.db import models
 from django.db.models.deletion import SET_NULL
 from django.urls import reverse
+from django.contrib.auth.models import User
 import uuid
+from datetime import date
 
 # Create your models here.
 class Genre(models.Model):
@@ -35,7 +37,6 @@ class BookInstance(models.Model):
     book = models.ForeignKey('Book', on_delete=models.RESTRICT)
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
-
     LOAN_STATUS = (
         ('m','Maintenance'),
         ('o','On loan'),
@@ -50,6 +51,13 @@ class BookInstance(models.Model):
         default='m',
         help_text='Book availability',
     )
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+    @property
+    def is_overdue(self):
+        if self.due_back and date.today()> self.due_back:
+            return True
+        return False
 
     class Meta:
         ordering = ['due_back']
@@ -67,7 +75,7 @@ class Author(models.Model):
         ordering = ['last_name','first_name']
 
     def get_absolute_url(self):
-        return reverse("author_detail", args=[str(self.id)])
+        return reverse("author-detail", args=[str(self.id)])
         
     def __str__(self):
         return f'{self.last_name},{self.first_name}'

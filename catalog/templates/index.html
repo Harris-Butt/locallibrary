@@ -17,4 +17,11 @@
   <li><strong>Books with title contain "a":</strong> {{ books_with_a }}</li>
   <li><strong>Authors:</strong> {{ num_genres }}</li>
 </ul>
+
+<p>
+  You have visited this page {{ num_visits }}
+
+   time
+   {% if num_visits > 1%}s{%endif %}.
+</p>
 {% endblock %}
